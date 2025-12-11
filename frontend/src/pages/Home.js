@@ -45,6 +45,26 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const connectedRef = useRef(false);
 
+  const fetchMovies = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_URL}/movies`);
+      setMovies(response.data);
+      setFilteredMovies(response.data);
+      if (!connectedRef.current) {
+        toast.success('Connected to backend and database successfully');
+        connectedRef.current = true;
+      }
+    } catch (err) {
+      // Fallback to static data if backend/database is unreachable
+      setMovies(FALLBACK_MOVIES);
+      setFilteredMovies(FALLBACK_MOVIES);
+      console.error('Error fetching movies, using fallback data:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const { ref: moviesRef, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -65,26 +85,6 @@ const Home = () => {
       setFilteredMovies(filtered);
     }
   }, [searchTerm, movies]);
-
-  const fetchMovies = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${API_URL}/movies`);
-      setMovies(response.data);
-      setFilteredMovies(response.data);
-      if (!connectedRef.current) {
-        toast.success('Connected to backend and database successfully');
-        connectedRef.current = true;
-      }
-    } catch (err) {
-      // Fallback to static data if backend/database is unreachable
-      setMovies(FALLBACK_MOVIES);
-      setFilteredMovies(FALLBACK_MOVIES);
-      console.error('Error fetching movies, using fallback data:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   const handleViewDetails = (movie) => {
     setSelectedMovie(movie);
