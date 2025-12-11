@@ -64,18 +64,18 @@ async function initialize() {
     const [rows] = await conn.query('SELECT COUNT(*) AS count FROM movies');
     if (rows[0].count === 0) {
       const sampleMovies = [
-        ['Sholay: The Final Cut', 'Action', 'Classic action drama.', 'https://picsum.photos/id/1024/400/600', 8.5, 'U', 'Hindi', 1200, 8200],
-        ['Zootopia 2', 'Family', 'Animated adventure sequel.', 'https://picsum.photos/id/1011/400/600', 9.1, 'UA7+', 'English, Hindi, Tamil, Telugu', 500, 11300],
-        ['Midnight Metro', 'Thriller', 'A race against time on the last train.', 'https://picsum.photos/id/1015/400/600', 7.9, 'UA13+', 'English', 2400, 6400],
-        ['Neon Bazaar', 'Drama', 'Interwoven tales in a bustling night market.', 'https://picsum.photos/id/1016/400/600', 8.2, 'UA16+', 'Hindi, English', 1800, 7200],
-        ['Skyward Bound', 'Adventure', 'Teens build a glider to chase a storm.', 'https://picsum.photos/id/1018/400/600', 8.0, 'U', 'English', 950, 4100],
-        ['Monsoon Letters', 'Romance', 'Two pen pals meet every rainy season.', 'https://picsum.photos/id/1021/400/600', 8.4, 'U', 'Hindi', 1320, 5600],
-        ['Parallel Lines', 'Sci-Fi', 'When physics bends, friendships are tested.', 'https://picsum.photos/id/1040/400/600', 8.7, 'UA13+', 'English', 2100, 9800],
-        ['Crimson Harbor', 'Thriller', 'A dockside mystery under crimson skies.', 'https://picsum.photos/id/1041/400/600', 7.8, 'UA16+', 'English, Hindi', 1750, 6400],
-        ['Garden of Echoes', 'Drama', 'Secrets surface in an old courtyard.', 'https://picsum.photos/id/1042/400/600', 8.3, 'U', 'Hindi, English', 2200, 7200],
-        ['Starlit Diner', 'Romance', 'Two chefs find love during night shifts.', 'https://picsum.photos/id/1043/400/600', 8.1, 'U', 'English', 1400, 5200],
-        ['Chai & Circuits', 'Comedy', 'A coder café where humor debugs life.', 'https://picsum.photos/id/1044/400/600', 7.6, 'U', 'Hindi, English', 1100, 4300],
-        ['Last Monsoon', 'Adventure', 'An expedition races the final rains.', 'https://picsum.photos/id/1045/400/600', 8.0, 'UA13+', 'English, Hindi', 1600, 5800]
+        ['Sholay: The Final Cut', 'Action', 'Classic action drama.', 'https://picsum.photos/seed/sholay/400/600', 8.5, 'U', 'Hindi', 1200, 8200],
+        ['Zootopia 2', 'Family', 'Animated adventure sequel.', 'https://picsum.photos/seed/zootopia2/400/600', 9.1, 'UA7+', 'English, Hindi, Tamil, Telugu', 500, 11300],
+        ['Midnight Metro', 'Thriller', 'A race against time on the last train.', 'https://picsum.photos/seed/midnightmetro/400/600', 7.9, 'UA13+', 'English', 2400, 6400],
+        ['Neon Bazaar', 'Drama', 'Interwoven tales in a bustling night market.', 'https://picsum.photos/seed/neonbazaar/400/600', 8.2, 'UA16+', 'Hindi, English', 1800, 7200],
+        ['Skyward Bound', 'Adventure', 'Teens build a glider to chase a storm.', 'https://picsum.photos/seed/skywardbound/400/600', 8.0, 'U', 'English', 950, 4100],
+        ['Monsoon Letters', 'Romance', 'Two pen pals meet every rainy season.', 'https://picsum.photos/seed/monsoonletters/400/600', 8.4, 'U', 'Hindi', 1320, 5600],
+        ['Parallel Lines', 'Sci-Fi', 'When physics bends, friendships are tested.', 'https://picsum.photos/seed/parallellines/400/600', 8.7, 'UA13+', 'English', 2100, 9800],
+        ['Crimson Harbor', 'Thriller', 'A dockside mystery under crimson skies.', 'https://picsum.photos/seed/crimsonharbor/400/600', 7.8, 'UA16+', 'English, Hindi', 1750, 6400],
+        ['Garden of Echoes', 'Drama', 'Secrets surface in an old courtyard.', 'https://picsum.photos/seed/gardenechoes/400/600', 8.3, 'U', 'Hindi, English', 2200, 7200],
+        ['Starlit Diner', 'Romance', 'Two chefs find love during night shifts.', 'https://picsum.photos/seed/starlitdiner/400/600', 8.1, 'U', 'English', 1400, 5200],
+        ['Chai & Circuits', 'Comedy', 'A coder café where humor debugs life.', 'https://picsum.photos/seed/chaicircuits/400/600', 7.6, 'U', 'Hindi, English', 1100, 4300],
+        ['Last Monsoon', 'Adventure', 'An expedition races the final rains.', 'https://picsum.photos/seed/lastmonsoon/400/600', 8.0, 'UA13+', 'English, Hindi', 1600, 5800]
       ];
       await conn.query(
         'INSERT INTO movies (title, genre, description, poster_url, rating, certificate, language, votes, likes) VALUES ?',
