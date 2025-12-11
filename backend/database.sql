@@ -33,5 +33,11 @@ INSERT INTO movies (title, genre, description, poster_url, rating, certificate, 
 ('Kantara: A Legend Chapter-1', 'Action', 'Mythic action prequel.', 'https://picsum.photos/id/1036/400/600', 9.3, 'UA16+', 'Kannada, Telugu, Hindi, Tamil', 561000, 0),
 ('Acharya Sri Shankara', 'Drama', 'Spiritual historical drama.', 'https://picsum.photos/id/1037/400/600', 9.0, 'U', 'Kannada', 0, 0),
 ('The Girlfriend', 'Thriller', 'Suspenseful relationship thriller.', 'https://picsum.photos/id/1038/400/600', 8.6, 'UA13+', 'Telugu, Hindi, Tamil, Kannada', 21500, 0),
-('Vishwaroopini Sri Vasavi', 'Drama', 'Epic biographical drama.', 'https://picsum.photos/id/1039/400/600', 9.4, 'U', 'Kannada', 30, 0);
+('Vishwaroopini Sri Vasavi', 'Drama', 'Epic biographical drama.', 'https://picsum.photos/id/1039/400/600', 9.4, 'U', 'Kannada', 30, 0),
+('Parallel Lines', 'Sci-Fi', 'When physics bends, friendships are tested.', 'https://picsum.photos/id/1040/400/600', 8.7, 'UA13+', 'English', 2100, 9800),
+('Crimson Harbor', 'Thriller', 'A dockside mystery under crimson skies.', 'https://picsum.photos/id/1041/400/600', 7.8, 'UA16+', 'English, Hindi', 1750, 6400),
+('Garden of Echoes', 'Drama', 'Secrets surface in an old courtyard.', 'https://picsum.photos/id/1042/400/600', 8.3, 'U', 'Hindi, English', 2200, 7200),
+('Starlit Diner', 'Romance', 'Two chefs find love during night shifts.', 'https://picsum.photos/id/1043/400/600', 8.1, 'U', 'English', 1400, 5200),
+('Chai & Circuits', 'Comedy', 'A coder café where humor debugs life.', 'https://picsum.photos/id/1044/400/600', 7.6, 'U', 'Hindi, English', 1100, 4300),
+('Last Monsoon', 'Adventure', 'An expedition races the final rains.', 'https://picsum.photos/id/1045/400/600', 8.0, 'UA13+', 'English, Hindi', 1600, 5800);
 
