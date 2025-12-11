@@ -3,7 +3,9 @@ import axios from 'axios';
 import { X, Edit, Trash2, Star, Tag, Film, Loader2, ThumbsUp, Languages, BadgeCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api');
 
 const MovieModal = ({ movie, onClose, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);

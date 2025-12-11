@@ -22,6 +22,11 @@ const HeroSection = () => {
           <p className="text-xl md:text-2xl text-white/80 mb-12 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             Dive into Cinematic Worlds
           </p>
+        <div className="flex justify-center mb-8 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+          <span className="glass-strong px-4 py-2 rounded-full text-white/80 text-sm">
+            Location: Home
+          </span>
+        </div>
           
           <div className="flex justify-center space-x-6 mb-16 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <div className="glass-card p-4 rounded-xl hover:scale-110 smooth-transition">
