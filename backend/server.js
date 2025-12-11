@@ -9,12 +9,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database config (must be provided via environment variables; no secrets in code)
+// Database config (must be provided via environment variables)
 const dbConfig = {
   host: process.env.DB_HOST || 'mysql-210a529-amith4747744-3aaa.h.aivencloud.com',
   port: Number(process.env.DB_PORT) || 25995,
   user: process.env.DB_USER || 'avnadmin',
-  password: process.env.DB_PASSWORD || 'AVNS_tmw4YywNcQhYATG0N13',
+  password: process.env.DB_PASSWORD, // Secrets must be in .env
   database: process.env.DB_NAME || 'defaultdb',
   waitForConnections: true,
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT) || 5,
