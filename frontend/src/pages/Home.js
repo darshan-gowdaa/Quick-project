@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useInView } from 'react-intersection-observer';
 import toast from 'react-hot-toast';
@@ -43,8 +43,7 @@ const Home = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [connected, setConnected] = useState(false);
+  const connectedRef = useRef(false);
 
   const { ref: moviesRef, inView } = useInView({
     threshold: 0.1,
@@ -53,7 +52,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchMovies();
-  }, []);
+  }, [fetchMovies]);
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
@@ -67,27 +66,25 @@ const Home = () => {
     }
   }, [searchTerm, movies]);
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${API_URL}/movies`);
       setMovies(response.data);
       setFilteredMovies(response.data);
-      setError(null);
-      if (!connected) {
+      if (!connectedRef.current) {
         toast.success('Connected to backend and database successfully');
-        setConnected(true);
+        connectedRef.current = true;
       }
     } catch (err) {
       // Fallback to static data if backend/database is unreachable
       setMovies(FALLBACK_MOVIES);
       setFilteredMovies(FALLBACK_MOVIES);
-      setError(null);
       console.error('Error fetching movies, using fallback data:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const handleViewDetails = (movie) => {
     setSelectedMovie(movie);
