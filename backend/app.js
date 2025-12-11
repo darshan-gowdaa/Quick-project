@@ -64,12 +64,12 @@ async function initialize() {
     const [rows] = await conn.query('SELECT COUNT(*) AS count FROM movies');
     if (rows[0].count === 0) {
       const sampleMovies = [
-        ['Sholay: The Final Cut', 'Action', 'Classic action drama.', 'https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=600&q=80', 8.5, 'U', 'Hindi', 1200, 8200],
-        ['Zootopia 2', 'Family', 'Animated adventure sequel.', 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&w=600&q=80', 9.1, 'UA7+', 'English, Hindi, Tamil, Telugu', 500, 11300],
-        ['Midnight Metro', 'Thriller', 'A race against time on the last train.', 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80', 7.9, 'UA13+', 'English', 2400, 6400],
-        ['Neon Bazaar', 'Drama', 'Interwoven tales in a bustling night market.', 'https://images.unsplash.com/photo-1502136969935-8d996bb9831f?auto=format&fit=crop&w=600&q=80', 8.2, 'UA16+', 'Hindi, English', 1800, 7200],
-        ['Skyward Bound', 'Adventure', 'Teens build a glider to chase a storm.', 'https://images.unsplash.com/photo-1464375117522-1311d6a5b81f?auto=format&fit=crop&w=600&q=80', 8.0, 'U', 'English', 950, 4100],
-        ['Monsoon Letters', 'Romance', 'Two pen pals meet every rainy season.', 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=600&q=80', 8.4, 'U', 'Hindi', 1320, 5600]
+        ['Sholay: The Final Cut', 'Action', 'Classic action drama.', 'https://picsum.photos/id/1024/400/600', 8.5, 'U', 'Hindi', 1200, 8200],
+        ['Zootopia 2', 'Family', 'Animated adventure sequel.', 'https://picsum.photos/id/1011/400/600', 9.1, 'UA7+', 'English, Hindi, Tamil, Telugu', 500, 11300],
+        ['Midnight Metro', 'Thriller', 'A race against time on the last train.', 'https://picsum.photos/id/1015/400/600', 7.9, 'UA13+', 'English', 2400, 6400],
+        ['Neon Bazaar', 'Drama', 'Interwoven tales in a bustling night market.', 'https://picsum.photos/id/1016/400/600', 8.2, 'UA16+', 'Hindi, English', 1800, 7200],
+        ['Skyward Bound', 'Adventure', 'Teens build a glider to chase a storm.', 'https://picsum.photos/id/1018/400/600', 8.0, 'U', 'English', 950, 4100],
+        ['Monsoon Letters', 'Romance', 'Two pen pals meet every rainy season.', 'https://picsum.photos/id/1021/400/600', 8.4, 'U', 'Hindi', 1320, 5600]
       ];
       await conn.query(
         'INSERT INTO movies (title, genre, description, poster_url, rating, certificate, language, votes, likes) VALUES ?',

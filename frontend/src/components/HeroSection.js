@@ -36,19 +36,6 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto animate-slide-up" style={{ animationDelay: '0.3s' }}>
-          {[1, 2, 3, 4].map((item, index) => (
-            <div
-              key={item}
-              className="glass-card aspect-[2/3] rounded-2xl overflow-hidden group cursor-pointer smooth-transition"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-full h-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center group-hover:scale-110 smooth-transition">
-                <Film className="w-12 h-12 text-yellow-400/50 group-hover:text-yellow-400 smooth-transition" />
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
