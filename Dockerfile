@@ -6,13 +6,22 @@ WORKDIR /app
 COPY backend/package*.json ./backend/
 RUN cd backend && npm ci --only=production
 
-# Copy backend source
+# Install frontend dependencies
+COPY frontend/package*.json ./frontend/
+RUN cd frontend && npm ci
+
+# Copy source
 COPY backend ./backend
+COPY frontend ./frontend
 
+# Build frontend for production
+RUN cd frontend && npm run build
+
+# Runtime config
 WORKDIR /app/backend
-
-# Railway routes to 8080 by default
 ENV PORT=8080
+ENV NODE_ENV=production
 
-CMD ["npm", "start"]
+# Start backend directly
+CMD ["node", "server.js"]
 

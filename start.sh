@@ -3,11 +3,14 @@
 # Exit on first error
 set -e
 
+# Move into backend folder
+cd "$(dirname "$0")/backend"
+
 # Install backend dependencies if not already installed
-if [ ! -d "backend/node_modules" ]; then
-  npm ci --prefix backend
+if [ ! -d "node_modules" ]; then
+  npm ci --only=production
 fi
 
 # Run the backend server
-npm start --prefix backend
+npm start
 
