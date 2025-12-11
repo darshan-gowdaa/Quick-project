@@ -5,6 +5,7 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import AddMovie from './pages/AddMovie';
 import Reviews from './pages/Reviews';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/add-movie" element={<AddMovie />} />
           <Route path="/reviews" element={<Reviews />} />
         </Routes>
+        <Footer />
         <Toaster
           position="top-right"
           toastOptions={{

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { PlusCircle, Film, Tag, AlignLeft, Image, Star, Download, Loader2, ArrowLeft, BadgeCheck, Languages, ThumbsUp } from 'lucide-react';
+import { PlusCircle, Film, Tag, AlignLeft, Image, Star, Loader2, ArrowLeft, BadgeCheck, Languages, ThumbsUp } from 'lucide-react';
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
@@ -23,7 +23,6 @@ const AddMovie = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [fetchingExternal, setFetchingExternal] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,27 +33,7 @@ const AddMovie = () => {
     if (error) setError(null);
   };
 
-  const handleFetchExternalData = async () => {
-    if (!formData.title.trim()) {
-      toast.error('Please enter a movie title first');
-      return;
-    }
 
-    setFetchingExternal(true);
-    setError(null);
-
-    try {
-      await axios.get(`${API_URL}/movies/search/external`, {
-        params: { title: formData.title }
-      });
-      toast.success('External API integration ready. This feature can be extended with OMDB or TMDB API.');
-    } catch (err) {
-      toast.error('Failed to fetch external movie data');
-      console.error('Error fetching external data:', err);
-    } finally {
-      setFetchingExternal(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,24 +116,6 @@ const AddMovie = () => {
                   <Film className="w-5 h-5 text-yellow-400" />
                   <span>Title *</span>
                 </label>
-                <button
-                  type="button"
-                  onClick={handleFetchExternalData}
-                  disabled={fetchingExternal || !formData.title.trim()}
-                  className="button-secondary text-sm px-3 py-1.5 rounded-lg flex items-center space-x-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {fetchingExternal ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Fetching...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-4 h-4" />
-                      <span>Fetch Data</span>
-                    </>
-                  )}
-                </button>
               </div>
               <input
                 type="text"

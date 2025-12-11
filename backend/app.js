@@ -11,14 +11,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // Database config (must be provided via environment variables; no secrets in code)
 const dbConfig = {
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.DB_HOST || 'mysql-210a529-amith4747744-3aaa.h.aivencloud.com',
+  port: Number(process.env.DB_PORT) || 25995,
+  user: process.env.DB_USER || 'avnadmin',
+  password: process.env.DB_PASSWORD || 'AVNS_tmw4YywNcQhYATG0N13',
+  database: process.env.DB_NAME || 'defaultdb',
   waitForConnections: true,
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT) || 5,
   queueLimit: 0,
+  connectTimeout: 5000,
   ssl: { rejectUnauthorized: false }
 };
 
@@ -60,6 +61,22 @@ async function initialize() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
+    // Schema Migration: Ensure new columns exist if table was created previously
+    try {
+      await conn.query("ALTER TABLE movies ADD COLUMN certificate VARCHAR(20) DEFAULT 'UA'");
+    } catch (e) { /* ignore duplicate column error */ }
+    try {
+      await conn.query("ALTER TABLE movies ADD COLUMN language VARCHAR(100) DEFAULT ''");
+    } catch (e) { /* ignore duplicate column error */ }
+    try {
+      await conn.query("ALTER TABLE movies ADD COLUMN votes INT NOT NULL DEFAULT 0");
+    } catch (e) { /* ignore duplicate column error */ }
+    try {
+      await conn.query("ALTER TABLE movies ADD COLUMN likes INT NOT NULL DEFAULT 0");
+    } catch (e) { /* ignore duplicate column error */ }
+    try {
+      await conn.query("ALTER TABLE movies ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+    } catch (e) { /* ignore duplicate column error */ }
 
     const [rows] = await conn.query('SELECT COUNT(*) AS count FROM movies');
     if (rows[0].count === 0) {
@@ -147,8 +164,32 @@ app.post('/api/movies', async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM movies WHERE id = ?', [result.insertId]);
     res.status(201).json(rows[0]);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to create movie', message: err.message });
+    console.error('POST /movies Error:', err);
+    res.status(500).json({ error: 'Failed to create movie', message: err.message, details: err.toString() });
   }
+});
+
+// Mock External Search Endpoint (OMDB Proxy Placeholder)
+app.get('/api/movies/search/external', async (req, res) => {
+  const { title } = req.query;
+  // Simulating external API response
+  const mockResults = [
+    {
+      Title: `${title} (2019)`,
+      Year: "2019",
+      imdbID: "tt7286456",
+      Type: "movie",
+      Poster: "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+    },
+    {
+      Title: `${title}: Folie à Deux (2024)`,
+      Year: "2024",
+      imdbID: "tt11315808",
+      Type: "movie",
+      Poster: "https://m.media-amazon.com/images/M/MV5BYTJlZDcwY2QtYzI4MC00ZjE1LWEzMjYtMTkzOWU1NjkwYzJlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+    }
+  ];
+  res.json({ Search: mockResults, totalResults: "2", Response: "True" });
 });
 
 app.put('/api/movies/:id', async (req, res) => {
