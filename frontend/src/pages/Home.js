@@ -9,6 +9,33 @@ import { Search, Film, Loader2 } from 'lucide-react';
 
 const API_URL = 'http://localhost:5000/api';
 
+const FALLBACK_MOVIES = [
+  {
+    id: 1,
+    title: 'Sholay: The Final Cut',
+    genre: 'Action',
+    description: 'Classic action drama.',
+    poster_url: 'https://i.imgur.com/5J9xZkU.jpeg',
+    rating: 8.5,
+    certificate: 'U',
+    language: 'Hindi',
+    votes: 1200,
+    likes: 8200,
+  },
+  {
+    id: 2,
+    title: 'Zootopia 2',
+    genre: 'Family',
+    description: 'Animated adventure sequel.',
+    poster_url: 'https://i.imgur.com/9kxHykG.jpeg',
+    rating: 9.1,
+    certificate: 'UA7+',
+    language: 'English, Hindi, Tamil, Telugu',
+    votes: 500,
+    likes: 11300,
+  },
+];
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -17,6 +44,7 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [connected, setConnected] = useState(false);
 
   const { ref: moviesRef, inView } = useInView({
     threshold: 0.1,
@@ -46,10 +74,16 @@ const Home = () => {
       setMovies(response.data);
       setFilteredMovies(response.data);
       setError(null);
+      if (!connected) {
+        toast.success('Connected to backend and database successfully');
+        setConnected(true);
+      }
     } catch (err) {
-      setError('Failed to fetch movies. Please make sure the backend server is running.');
-      toast.error('Failed to fetch movies');
-      console.error('Error fetching movies:', err);
+      // Fallback to static data if backend/database is unreachable
+      setMovies(FALLBACK_MOVIES);
+      setFilteredMovies(FALLBACK_MOVIES);
+      setError(null);
+      console.error('Error fetching movies, using fallback data:', err);
     } finally {
       setLoading(false);
     }
@@ -119,14 +153,7 @@ const Home = () => {
           </div>
         )}
 
-        {error && (
-          <div className="glass-strong rounded-2xl p-6 mb-8 text-center animate-scale-in max-w-2xl mx-auto">
-            <div className="text-red-400 mb-2">⚠️</div>
-            <p className="text-white">{error}</p>
-          </div>
-        )}
-
-        {!loading && !error && (
+        {!loading && (
           <div ref={moviesRef}>
             {filteredMovies.length === 0 ? (
               <div className="text-center py-20 animate-fade-in">
