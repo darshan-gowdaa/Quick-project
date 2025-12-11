@@ -1,0 +1,16 @@
+providers = ["node"]
+
+[phases.setup]
+  # Ensure npm is available
+  nixPkgs = ["nodejs_20"]
+
+[phases.install]
+  cmds = ["npm ci --prefix backend"]
+
+[phases.build]
+  # No build step needed for backend-only app
+  cmds = []
+
+[start]
+  cmd = "./start.sh"
+
