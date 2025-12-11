@@ -195,3 +195,4 @@ Test on different screen sizes:
 
 If all items are checked, your MovieMania application is fully functional! 🎉
 
+

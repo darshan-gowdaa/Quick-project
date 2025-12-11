@@ -134,3 +134,4 @@ mongo mongodb://localhost:27017/moviemania_db
 
 Your MovieMania app should now be running! 🎬
 
+
