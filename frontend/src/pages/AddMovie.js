@@ -42,7 +42,7 @@ const AddMovie = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`${API_URL}/movies/search/external`, {
+      await axios.get(`${API_URL}/movies/search/external`, {
         params: { title: formData.title }
       });
       toast.success('External API integration ready. This feature can be extended with OMDB or TMDB API.');
